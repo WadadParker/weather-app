@@ -4,7 +4,7 @@ import CityDetails from './CityDetails'
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
-const Header = ({setWeatherData,setIsLoading}) => {
+const Header = ({setWeatherData,setIsLoading,error,setError}) => {
   const [cityData,setCityData] = useState("");
 
   const handleCityData = (data) =>
@@ -24,12 +24,14 @@ const Header = ({setWeatherData,setIsLoading}) => {
       
       setWeatherData(data.list);
       setIsLoading(false);
+      setError(false);
       }
 
     }
     catch(error)
     {
       console.log(error);
+      setError(true);
     }
   }
 
@@ -37,8 +39,8 @@ const Header = ({setWeatherData,setIsLoading}) => {
   
   return (
     <header className="flex justify-between items-center pb-2  w-full border-b border-black/20 max-sm:flex-col-reverse max-sm:space-y-4">
-        {cityData!=="" && <CityDetails city={cityData} />}
-        <SearchBar handleCityData={handleCityData}/>
+        {(cityData!=="" && !error) && <CityDetails city={cityData} />}
+        <SearchBar handleCityData={handleCityData} setError={setError}/>
     </header>
   )
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 const apiKey = import.meta.env.VITE_API_KEY;
 
-const SearchBar = ({handleCityData}) => {
+const SearchBar = ({handleCityData,setError}) => {
 
     const [search, setSearch] = useState("")
 
@@ -16,6 +16,7 @@ const SearchBar = ({handleCityData}) => {
       }
       catch(error) {
         console.log(error);
+        setError(true);
       }
     }
 
