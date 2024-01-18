@@ -14,7 +14,7 @@ function App() {
       <NavBar />
       <section className=" px-40 pt-14 max-sm:px-3 max-sm:pt-6">
         <Header setWeatherData={setWeatherData} setIsLoading={setIsLoading}/>
-        {weatherData!=="" && <Main isLoading={isLoading}/>}
+        {weatherData!=="" && <Main isLoading={isLoading} weatherData={weatherData}/>}
       </section>
     </div>
 

@@ -18,7 +18,7 @@ const Header = ({setWeatherData,setIsLoading}) => {
     try {
       if(cityData!=="")
       {
-      const response = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${cityData.lat}&lon=${cityData.lon}&appid=${apiKey}&units=imperial`);
+      const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${cityData.lat}&lon=${cityData.lon}&appid=${apiKey}&units=imperial`);
       const data = await response.json();
       console.log(response,data);
       

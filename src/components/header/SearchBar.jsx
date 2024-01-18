@@ -8,7 +8,7 @@ const SearchBar = ({handleCityData}) => {
     const getCityData = async () =>
     {
       try{
-      const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=1&appid=${apiKey}`);
+      const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=1&appid=${apiKey}`);
       const data = await response.json();
 
       handleCityData(data[0]);
