@@ -1,39 +1,44 @@
-import React from 'react'
+import React, { useState , useEffect } from 'react'
 import SearchBar from './SearchBar'
 import CityDetails from './CityDetails'
 
-const cityData = [
-    {
-        "name": "Hubli",
-        "local_names": {
-            "de": "Hubli",
-            "ja": "フッバッリ",
-            "ur": "ہوبلی",
-            "te": "హుబ్బల్లి",
-            "pt": "Hubli",
-            "ru": "Хубли-Дхарва",
-            "ml": "ഹുബ്ലി",
-            "es": "Hubli",
-            "ks": "ہوبلی",
-            "ta": "ஹூப்பள்ளி",
-            "kn": "ಹುಬ್ಬಳ್ಳಿ",
-            "he": "הובלי",
-            "en": "Hubli",
-            "ar": "هوبلي",
-            "hi": "हुबली"
-        },
-        "lat": 15.3518378,
-        "lon": 75.1379848,
-        "country": "IN",
-        "state": "Karnataka"
-    }
-  ]
+const apiKey = import.meta.env.VITE_API_KEY;
 
-const Header = () => {
+const Header = ({setWeatherData,setIsLoading}) => {
+  const [cityData,setCityData] = useState("");
+
+  const handleCityData = (data) =>
+  {
+    setCityData(data);
+    setIsLoading(true);
+  }
+
+  const getWeatherData = async () =>
+  {
+    try {
+      if(cityData!=="")
+      {
+      const response = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${cityData.lat}&lon=${cityData.lon}&appid=${apiKey}&units=imperial`);
+      const data = await response.json();
+      console.log(response,data);
+      
+      setWeatherData(data.list);
+      setIsLoading(false);
+      }
+
+    }
+    catch(error)
+    {
+      console.log(error);
+    }
+  }
+
+  useEffect(()=>{getWeatherData()},[cityData]);
+  
   return (
-    <header className="flex justify-between items-center pb-2 flex-row-reverse w-full border-b border-black/20">
-        <SearchBar />
-        <CityDetails city={cityData[0]} />
+    <header className="flex justify-between items-center pb-2  w-full border-b border-black/20 max-sm:flex-col-reverse max-sm:space-y-4">
+        {cityData!=="" && <CityDetails city={cityData} />}
+        <SearchBar handleCityData={handleCityData}/>
     </header>
   )
 }
