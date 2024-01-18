@@ -1,7 +1,6 @@
 import React from 'react'
 
 function convertToDMS(decimalDegrees, isLatitude) {
-    console.log(isLatitude);
     
     const direction = isLatitude ? (decimalDegrees >= 0 ? 'N' : 'S') : (decimalDegrees >= 0 ? 'E' : 'W');
     
